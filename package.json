@@ -1,10 +1,11 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "backend for flow project",
+  "author": "MMDA Tecnologia<mmdatecnologia@gmail.com>",
+  "private": false,
   "license": "UNLICENSED",
+  "repository": "git@github.com:mmdatecnologia/flow-backend.git",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
