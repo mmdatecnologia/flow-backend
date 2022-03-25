@@ -9,5 +9,7 @@ export const validationSchema = Joi.object({
   CACHE_STORE: Joi.string().valid('redis', 'memory').default('memory'),
   CACHE_HOST: Joi.string().default('localhost'),
   CACHE_PORT: Joi.number().default(6379),
-  CACHE_TTL: Joi.number().default(60)
+  CACHE_TTL: Joi.number().default(60),
+  THROTTLER_TTL: Joi.number().default(60),
+  THROTTLER_LIMIT: Joi.number().default(100)
 })

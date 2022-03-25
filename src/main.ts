@@ -3,6 +3,8 @@ import { NestFactory } from '@nestjs/core'
 import { AppModule } from '@app/app.module'
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
 import { ConfigService } from '@nestjs/config'
+import helmet from 'helmet'
+import csurf from 'csurf'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
@@ -28,6 +30,9 @@ async function bootstrap() {
   }
   const document = SwaggerModule.createDocument(app, config, options)
   SwaggerModule.setup('api', app, document)
+  app.use(helmet())
+  app.enableCors()
+  app.use(csurf())
   await app.listen(configService.get<number>('app.port') ?? 3000)
 }
 bootstrap()
