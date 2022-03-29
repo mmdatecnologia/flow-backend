@@ -1,19 +1,22 @@
 import { AppModule } from '@app/app.module'
-import { HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
+import { ClassSerializerInterceptor, HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { NestFactory } from '@nestjs/core'
+import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
 import * as csurf from 'csurf'
 import helmet from 'helmet'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
   app.useGlobalPipes(
     new ValidationPipe({
       errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
       validationError: { target: true, value: true },
       whitelist: true,
-      transform: true
+      forbidUnknownValues: true,
+      transform: true,
+      forbidNonWhitelisted: true
     })
   )
   app.enableVersioning({
