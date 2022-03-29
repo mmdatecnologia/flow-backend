@@ -1,10 +1,10 @@
-import { HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
-import { NestFactory } from '@nestjs/core'
 import { AppModule } from '@app/app.module'
-import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
+import { HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
+import { NestFactory } from '@nestjs/core'
+import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
+import * as csurf from 'csurf'
 import helmet from 'helmet'
-import csurf from 'csurf'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
