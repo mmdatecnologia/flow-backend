@@ -1,4 +1,4 @@
-export enum CacheEnum {
+export enum CacheType {
   REDIS = 'redis',
   MEMORY = 'memory'
 }

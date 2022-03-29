@@ -1,15 +1,15 @@
-import { CacheEnum } from '@app/cache/cache.enum'
-import { RedisCacheService } from '@app/cache/redis-cache.service'
-import { CacheModule, CacheModuleOptions, Module } from '@nestjs/common'
+import { CacheType } from '@app/cache/cache.contract'
+import { CacheService } from '@app/cache/cache.service'
+import { CacheModule as NestCacheModule, CacheModuleOptions, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import * as redisStore from 'cache-manager-ioredis'
 
 @Module({
   imports: [
-    CacheModule.registerAsync({
+    NestCacheModule.registerAsync({
       inject: [ConfigService],
       useFactory: async (configService: ConfigService): Promise<CacheModuleOptions> => {
-        if (configService.get<string>('cache.store') === CacheEnum.REDIS) {
+        if (configService.get<string>('cache.store') === CacheType.REDIS) {
           return {
             store: redisStore,
             host: configService.get<string>('cache.host'),
@@ -21,7 +21,7 @@ import * as redisStore from 'cache-manager-ioredis'
       }
     })
   ],
-  exports: [RedisCacheService],
-  providers: [RedisCacheService]
+  exports: [CacheService],
+  providers: [CacheService]
 })
-export class RedisCacheModule {}
+export class CacheModule {}

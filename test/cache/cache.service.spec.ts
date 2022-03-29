@@ -1,17 +1,17 @@
-import { Test, TestingModule } from '@nestjs/testing'
-import { RedisCacheService } from '@app/cache/redis-cache.service'
+import { CacheService } from '@app/cache/cache.service'
 import { CacheModule } from '@nestjs/common'
+import { Test, TestingModule } from '@nestjs/testing'
 
 describe('AppController', () => {
-  let cacheService: RedisCacheService
+  let cacheService: CacheService
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [CacheModule.register()],
-      providers: [RedisCacheService]
+      providers: [CacheService]
     }).compile()
 
-    cacheService = app.get<RedisCacheService>(RedisCacheService)
+    cacheService = app.get<CacheService>(CacheService)
   })
 
   it('should be defined"', () => {
