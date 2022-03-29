@@ -23,10 +23,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.module.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.dto.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.entity.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.enum.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.interface.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.config.{js,jsx,ts,tsx}'
+    '!<rootDir>/src/**/*..{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/*.interface.{js,jsx,ts,tsx}'
   ]
 }
