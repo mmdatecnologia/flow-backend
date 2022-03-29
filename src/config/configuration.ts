@@ -16,9 +16,10 @@ export interface Configuration {
     password: string
     port: number
     ttl: number
+    prefix: string
   }
   db: {
-    type: 'mysql' | 'mongo' | string
+    type: 'mysql' | 'mongodb' | string
     username: string
     password: string
     host: string
@@ -45,7 +46,8 @@ export const configuration = (): Configuration => ({
     host: process.env.CACHE_HOST,
     password: process.env.CACHE_PASSWORD,
     port: parseInt(process.env.CACHE_PORT, 10),
-    ttl: parseInt(process.env.CACHE_TTL, 10)
+    ttl: parseInt(process.env.CACHE_TTL, 10),
+    prefix: process.env.CACHE_PREFIX
   },
   db: {
     type: process.env.DB_TYPE,

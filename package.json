@@ -42,6 +42,7 @@
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^5.2.0",
     "@nestjs/throttler": "^2.0.1",
+    "@nestjs/typeorm": "^8.0.3",
     "cache-manager": "^3.6.0",
     "cache-manager-ioredis": "^2.1.0",
     "class-transformer": "^0.5.1",
@@ -49,11 +50,13 @@
     "csurf": "^1.11.0",
     "helmet": "^5.0.2",
     "joi": "^17.6.0",
+    "mongodb": "^3.7.3",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
-    "swagger-ui-express": "^4.3.0"
+    "swagger-ui-express": "^4.3.0",
+    "typeorm": "^0.2.45"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
@@ -75,8 +78,8 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "faker-br": "^0.4.1",
-    "git-cz": "^4.8.0",
     "git-commit-msg-linter": "^4.1.1",
+    "git-cz": "^4.8.0",
     "husky": "^7.0.4",
     "jest": "^27.2.5",
     "lint-staged": "^12.3.7",
