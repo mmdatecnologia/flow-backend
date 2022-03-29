@@ -17,8 +17,6 @@ import * as redisStore from 'cache-manager-ioredis'
             ttl: configService.get<number>('cache.ttl'),
             isGlobal: true
           }
-        } else {
-          return null
         }
       }
     })
