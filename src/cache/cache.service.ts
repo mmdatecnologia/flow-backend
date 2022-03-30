@@ -13,7 +13,7 @@ export class CacheService {
     return this.cacheManager.get(key)
   }
 
-  async delete(key: string): Promise<void> {
+  async del(key: string): Promise<void> {
     await this.cacheManager.del(key)
   }
 }

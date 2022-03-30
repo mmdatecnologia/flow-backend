@@ -29,7 +29,7 @@ describe('AppController', () => {
     const key = 'test'
     const value = 'test'
     await cacheService.set(key, value)
-    await cacheService.delete(key)
+    await cacheService.del(key)
     const result = await cacheService.get(key)
     expect(result).toBeFalsy()
     expect(result).toBe(undefined)
