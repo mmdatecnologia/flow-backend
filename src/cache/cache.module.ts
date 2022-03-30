@@ -3,6 +3,7 @@ import { CacheModule as NestCacheModule, Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 
 import { configFactory } from './cache.config'
+import { CacheHealthIndicator } from './health.indicator'
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { configFactory } from './cache.config'
       useFactory: configFactory
     })
   ],
-  exports: [CacheService],
-  providers: [CacheService]
+  exports: [CacheService, CacheHealthIndicator],
+  providers: [CacheService, CacheHealthIndicator]
 })
 export class CacheModule {}
