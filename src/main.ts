@@ -3,7 +3,6 @@ import { ClassSerializerInterceptor, HttpStatus, ValidationPipe, VersioningType 
 import { ConfigService } from '@nestjs/config'
 import { NestFactory, Reflector } from '@nestjs/core'
 import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/swagger'
-import * as csurf from 'csurf'
 import helmet from 'helmet'
 
 async function bootstrap() {
@@ -35,7 +34,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document)
   app.use(helmet())
   app.enableCors()
-  app.use(csurf())
+  app.enableShutdownHooks()
   await app.listen(configService.get<number>('app.port') ?? 3000)
 }
 bootstrap()

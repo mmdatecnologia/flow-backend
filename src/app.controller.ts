@@ -1,12 +1,29 @@
+import { CacheHealthIndicator } from '@app/cache/health.indicator'
 import { Controller, Get } from '@nestjs/common'
-import { AppService } from './app.service'
+import {
+  HealthCheck,
+  HealthCheckResult,
+  HealthCheckService,
+  HttpHealthIndicator,
+  TypeOrmHealthIndicator
+} from '@nestjs/terminus'
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private health: HealthCheckService,
+    private http: HttpHealthIndicator,
+    private db: TypeOrmHealthIndicator,
+    private cache: CacheHealthIndicator
+  ) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  @HealthCheck()
+  async check(): Promise<HealthCheckResult> {
+    return this.health.check([
+      () => this.http.pingCheck('dependency-api', 'https://docs.nestjs.com'),
+      () => this.db.pingCheck('database'),
+      () => this.cache.isHealthy('cache')
+    ])
   }
 }
