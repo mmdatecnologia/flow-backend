@@ -1,7 +1,6 @@
 module.exports = {
-  roots: ['<rootDir>/test'],
+  roots: ['<rootDir>/src'],
   moduleNameMapper: {
-    '@test/(.*)': '<rootDir>/test/$1',
     '@app/(.*)': '<rootDir>/src/$1'
   },
   moduleFileExtensions: ['ts', 'js', 'tsx', 'jsx', 'json'],
@@ -22,8 +21,11 @@ module.exports = {
   },
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/main.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.module.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*..{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.interface.{js,jsx,ts,tsx}'
+    '!<rootDir>/src/**/*.contract.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/*.e2e-spec.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/*.mock.{js,jsx,ts,tsx}'
   ]
 }
