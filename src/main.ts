@@ -1,4 +1,4 @@
-import { AppModule } from '@app/app.module'
+import { AppModule } from '@app/main/main.module'
 import { ClassSerializerInterceptor, HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory, Reflector } from '@nestjs/core'

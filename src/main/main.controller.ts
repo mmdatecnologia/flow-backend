@@ -9,7 +9,7 @@ import {
 } from '@nestjs/terminus'
 
 @Controller()
-export class AppController {
+export class MainController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
