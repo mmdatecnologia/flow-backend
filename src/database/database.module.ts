@@ -2,6 +2,7 @@ import { ConfigModule } from '@app/config/config.module'
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { Connection } from 'typeorm'
 
 import { configFactory } from './database.config'
 
@@ -14,4 +15,6 @@ import { configFactory } from './database.config'
     })
   ]
 })
-export class DatabaseModule {}
+export class DatabaseModule {
+  constructor(private connection: Connection) {}
+}
