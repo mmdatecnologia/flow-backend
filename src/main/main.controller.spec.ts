@@ -1,12 +1,13 @@
-import { AppController } from '@app/app.controller'
-import { AppService } from '@app/app.service'
 import { CacheHealthIndicator } from '@app/cache/health.indicator'
 import { createMock } from '@golevelup/nestjs-testing'
 import { HttpHealthIndicator, TerminusModule, TypeOrmHealthIndicator } from '@nestjs/terminus'
 import { Test, TestingModule } from '@nestjs/testing'
 
-describe('AppController', () => {
-  let appController: AppController
+import { MainController } from './main.controller'
+import { MainService } from './main.service'
+
+describe('MainController', () => {
+  let mainController: MainController
   const cacheHealthIndicator = createMock<CacheHealthIndicator>()
   const httpHealthIndicator = createMock<HttpHealthIndicator>()
   const typeOrmHealthIndicator = createMock<TypeOrmHealthIndicator>()
@@ -14,20 +15,20 @@ describe('AppController', () => {
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
       imports: [TerminusModule],
-      controllers: [AppController],
+      controllers: [MainController],
       providers: [
         { provide: CacheHealthIndicator, useValue: cacheHealthIndicator },
         { provide: HttpHealthIndicator, useValue: httpHealthIndicator },
         { provide: TypeOrmHealthIndicator, useValue: typeOrmHealthIndicator },
         { provide: CacheHealthIndicator, useValue: cacheHealthIndicator },
-        AppService
+        MainService
       ]
     }).compile()
 
-    appController = app.get<AppController>(AppController)
+    mainController = app.get<MainController>(MainController)
   })
   it('should be defined"', () => {
-    expect(appController).toBeDefined()
+    expect(mainController).toBeDefined()
   })
   it('should be check"', async () => {
     cacheHealthIndicator.isHealthy.mockImplementation(async (key: string) => ({ [key]: { status: 'up' } }))
@@ -59,6 +60,6 @@ describe('AppController', () => {
         }
       }
     }
-    expect(await appController.check()).toEqual(expected)
+    expect(await mainController.check()).toEqual(expected)
   })
 })
