@@ -20,9 +20,6 @@ describe('AppController (e2e)', () => {
   const memoryDb = new MemoryDb()
   beforeAll(async () => {
     await memoryDb.initialize()
-  })
-  beforeEach(async () => {
-    await memoryDb.cleanup()
     const moduleBuilder: TestingModuleBuilder = Test.createTestingModule({
       imports: [
         HttpModule,
@@ -50,6 +47,9 @@ describe('AppController (e2e)', () => {
     })
     const moduleFixture: TestingModule = await moduleBuilder.compile()
     app = moduleFixture.createNestApplication()
+  })
+  beforeEach(async () => {
+    await memoryDb.cleanup()
     await app.init()
     await app.listen(3000)
   })
