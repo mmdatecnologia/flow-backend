@@ -16,4 +16,5 @@ export const configFactory = async (configService: ConfigService): Promise<Cache
       isGlobal: true
     }
   }
+  return null
 }
