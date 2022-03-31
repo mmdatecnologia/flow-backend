@@ -20,7 +20,6 @@ describe('MainController', () => {
         { provide: CacheHealthIndicator, useValue: cacheHealthIndicator },
         { provide: HttpHealthIndicator, useValue: httpHealthIndicator },
         { provide: TypeOrmHealthIndicator, useValue: typeOrmHealthIndicator },
-        { provide: CacheHealthIndicator, useValue: cacheHealthIndicator },
         MainService
       ]
     }).compile()

@@ -1,4 +1,4 @@
-import { AppModule } from '@app/main/main.module'
+import { MainModule } from '@app/main/main.module'
 import { ClassSerializerInterceptor, HttpStatus, ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory, Reflector } from '@nestjs/core'
@@ -6,7 +6,7 @@ import { DocumentBuilder, SwaggerDocumentOptions, SwaggerModule } from '@nestjs/
 import helmet from 'helmet'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(MainModule)
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)))
   app.useGlobalPipes(
     new ValidationPipe({
