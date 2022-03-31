@@ -27,13 +27,15 @@ Para instalar as dependencias `<flow-backend>`, siga estas etapas:
 ```bash
 npm run install
 ```
+
 ## ⚙️ Configurando ambiente `<flow-backend>`
 
-Utilizar o arquivo `src/config/env/example.env` como base para a criação dos seguintes arquivos de configuração:
+Utilizar o arquivo `example.env` como base para a criação dos seguintes arquivos de configuração:
+
 - `development.env`
 - `test.env`
 
-> Aplicação utiliza schema de validação `src/config/validation/validation.ts`, caso não sejam providas a configurações requeridas, resultará em erro.
+> Aplicação utiliza schema de validação `src/config/validation.ts`, caso não sejam providas a configurações requeridas, resultará em erro.
 
 ## 🚀 Usando `<flow-backend>`
 
@@ -79,8 +81,8 @@ $ npm run test:cov
 ## Gerando arquivo de change log
 
 ```bash
-$ npm run changelog:minor # x.y.x
-$ npm run changelog:major # y.x.x
-$ npm run changelog:patch # x.x.y
-$ npm run changelog:alpha # x.x.x-alpha.0
+npm run changelog:minor # x.y.x
+npm run changelog:major # y.x.x
+npm run changelog:patch # x.x.y
+npm run changelog:alpha # x.x.x-alpha.0
 ```
