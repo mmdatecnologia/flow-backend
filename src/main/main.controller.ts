@@ -13,17 +13,18 @@ export class MainController {
   constructor(
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
-    private db: TypeOrmHealthIndicator,
-    private cache: CacheHealthIndicator
+    private cache: CacheHealthIndicator,
+    private db: TypeOrmHealthIndicator
   ) {}
 
   @Get()
   @HealthCheck()
   async check(): Promise<HealthCheckResult> {
-    return this.health.check([
+    const result = await this.health.check([
       () => this.http.pingCheck('dependency-api', 'https://docs.nestjs.com'),
-      () => this.db.pingCheck('database'),
-      () => this.cache.isHealthy('cache')
+      () => this.cache.isHealthy('cache'),
+      () => this.db.pingCheck('database')
     ])
+    return result
   }
 }

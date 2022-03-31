@@ -11,6 +11,7 @@ export const configFactory = async (configService: ConfigService): Promise<TypeO
     useUnifiedTopology: true,
     keepConnectionAlive: true,
     retryWrites: false,
-    ssl: configService.get<boolean>('db.ssl')
+    ssl: configService.get<boolean>('db.ssl'),
+    useNewUrlParser: true
   }
 }

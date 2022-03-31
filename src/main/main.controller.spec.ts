@@ -39,10 +39,10 @@ describe('MainController', () => {
         'dependency-api': {
           status: 'up'
         },
-        database: {
+        cache: {
           status: 'up'
         },
-        cache: {
+        database: {
           status: 'up'
         }
       },
@@ -51,10 +51,10 @@ describe('MainController', () => {
         'dependency-api': {
           status: 'up'
         },
-        database: {
+        cache: {
           status: 'up'
         },
-        cache: {
+        database: {
           status: 'up'
         }
       }

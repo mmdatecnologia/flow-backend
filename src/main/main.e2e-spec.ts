@@ -1,30 +1,65 @@
+import { CacheModule } from '@app/cache/cache.module'
+import { ConfigModule } from '@app/config/config.module'
 import { MemoryDb } from '@app/database/mocks/memory-db.mock'
-import { MainModule } from '@app/main/main.module'
+import { HttpModule } from '@nestjs/axios'
 import { INestApplication } from '@nestjs/common'
-import { Test, TestingModule } from '@nestjs/testing'
+import { ConfigService } from '@nestjs/config'
+import { TerminusModule } from '@nestjs/terminus'
+import { Test, TestingModule, TestingModuleBuilder } from '@nestjs/testing'
+import { ThrottlerModule } from '@nestjs/throttler'
+import { TypeOrmModule } from '@nestjs/typeorm'
 import * as request from 'supertest'
 
+import { MainController } from './main.controller'
+import { MainService } from './main.service'
+
 jest.setTimeout(30000)
+
 describe('AppController (e2e)', () => {
   let app: INestApplication
   const memoryDb = new MemoryDb()
   beforeAll(async () => {
     await memoryDb.initialize()
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [MainModule]
-    }).compile()
-
-    app = moduleFixture.createNestApplication()
-    await app.init()
   })
-
   beforeEach(async () => {
     await memoryDb.cleanup()
+    const moduleBuilder: TestingModuleBuilder = Test.createTestingModule({
+      imports: [
+        HttpModule,
+        ConfigModule,
+        ThrottlerModule,
+        CacheModule,
+        TypeOrmModule.forRootAsync({
+          inject: [ConfigService],
+          useFactory: async () => ({
+            type: 'mongodb',
+            url: memoryDb.getUri(),
+            entities: [__dirname + '../**/*.entity.ts'],
+            synchronize: true,
+            autoLoadEntities: true,
+            useUnifiedTopology: true,
+            keepConnectionAlive: true,
+            useNewUrlParser: true,
+            logging: true
+          })
+        }),
+        TerminusModule
+      ],
+      controllers: [MainController],
+      providers: [MainService]
+    })
+    const moduleFixture: TestingModule = await moduleBuilder.compile()
+    app = moduleFixture.createNestApplication()
+    await app.init()
+    await app.listen(3000)
+  })
+
+  afterEach(async () => {
+    await app.close()
   })
 
   afterAll(async () => {
     await memoryDb.shutdown()
-    await app.close()
   })
 
   it('/ (GET)', () => {

@@ -1,4 +1,3 @@
-import * as configFactory from '@app/database/database.config'
 import { Db, MongoClient } from 'mongodb'
 import { MongoMemoryServer } from 'mongodb-memory-server'
 
@@ -9,10 +8,8 @@ export class MemoryDb {
 
   async initialize(): Promise<void> {
     this.server = await MongoMemoryServer.create()
-
-    this.client = await MongoClient.connect(this.server.getUri())
+    this.client = await MongoClient.connect(this.server.getUri(), { useUnifiedTopology: true })
     this.db = this.client.db('jest')
-    this.mockTypeOrmConfig()
   }
 
   async cleanup(): Promise<void> {
@@ -26,23 +23,13 @@ export class MemoryDb {
     await this.server?.stop()
   }
 
+  getUri(): string {
+    return this.server.getUri()
+  }
+
   private async ensureInitialized(): Promise<void> {
     if (!this.server || !this.client || !this.db) {
       await this.initialize()
     }
-  }
-
-  private mockTypeOrmConfig(): void {
-    jest.spyOn(configFactory, 'configFactory').mockImplementation(async () => ({
-      type: 'mongodb',
-      url: this.server.getUri(),
-      entities: [__dirname + '../**/*.entity.ts'],
-      synchronize: true,
-      autoLoadEntities: true,
-      useUnifiedTopology: true,
-      keepConnectionAlive: true,
-      useNewUrlParser: true,
-      logging: true
-    }))
   }
 }
