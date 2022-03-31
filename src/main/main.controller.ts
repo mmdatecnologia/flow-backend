@@ -1,5 +1,6 @@
 import { CacheHealthIndicator } from '@app/cache/health.indicator'
 import { Controller, Get } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import {
   HealthCheck,
   HealthCheckResult,
@@ -8,6 +9,7 @@ import {
   TypeOrmHealthIndicator
 } from '@nestjs/terminus'
 
+@ApiTags('Health Check')
 @Controller()
 export class MainController {
   constructor(
