@@ -23,9 +23,8 @@ module.exports = {
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/main.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.module.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*..{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.contract.{js,jsx,ts,tsx}',
-    '!<rootDir>/src/**/*.e2e-spec.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/*.interface.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/*.*spec.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.mock.{js,jsx,ts,tsx}'
   ]
 }
