@@ -11,6 +11,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   testEnvironment: 'node',
   coverageReporters: ['json-summary', 'text', 'lcov'],
+  testResultsProcessor: 'jest-sonar-reporter',
   coverageThreshold: {
     global: {
       statements: 95,
