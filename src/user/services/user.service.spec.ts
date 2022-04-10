@@ -45,7 +45,6 @@ describe('UserService', () => {
 
       expect(userCreated).toBeInstanceOf(GetUserDto)
       expect(userCreated.email).toBe(createUserDto.email)
-      expect(userCreated).toHaveProperty('id')
       expect(userCreated.id).toBe(mockedUserId)
     })
     it('should throw an error if repository throws an error', async () => {
@@ -80,7 +79,6 @@ describe('UserService', () => {
 
       expect(userFound).toBeInstanceOf(GetUserDto)
       expect(userFound.email).toBe(mockedUserEmail)
-      expect(userFound).toHaveProperty('id')
       expect(userFound.id).toBe(mockedUserId)
     })
     it('should return undefined if no record is find', async () => {
