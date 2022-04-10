@@ -1,9 +1,9 @@
 import { User } from '@app/user/models/user.interface'
 import { ApiProperty } from '@nestjs/swagger'
 
-export class GetUserDto implements Partial<User> {
+export class GetUserDto implements User {
   @ApiProperty()
-  username: string
+  id: string
   @ApiProperty()
   email: string
 }

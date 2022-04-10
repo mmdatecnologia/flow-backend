@@ -11,16 +11,8 @@ export class UserEntity implements User {
 
   @ApiProperty()
   @Column()
-  username: string
-
-  @ApiProperty()
-  @Column()
   @Index()
   email: string
-
-  @ApiProperty()
-  @Column()
-  password: string
 
   @CreateDateColumn()
   createdAt: Date
