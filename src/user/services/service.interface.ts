@@ -5,11 +5,11 @@ export namespace UseCase {
     create(user: CreateUserDto): Promise<GetUserDto>
   }
 
-  export interface GetUser {
+  export interface FindOne {
     findOne(id: string): Promise<GetUserDto>
   }
 
-  export interface GetUsers {
+  export interface FindAll {
     findAll(): Promise<GetUserDto[]>
   }
 
