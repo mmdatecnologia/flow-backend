@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 
 @Injectable()
-export class UserService implements UseCase.CreateUser, UseCase.FindOne {
+export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase.FindAll {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: MongoRepository<UserEntity>
@@ -27,5 +27,13 @@ export class UserService implements UseCase.CreateUser, UseCase.FindOne {
     }
     const { email } = findUserEntity
     return Object.assign(new GetUserDto(), { id, email })
+  }
+
+  async findAll(): Promise<GetUserDto[]> {
+    const result = await this.userRepository.find({})
+    if (result.length === 0) {
+      return []
+    }
+    return result.map(({ id, email }) => Object.assign(new GetUserDto(), { id, email }))
   }
 }
