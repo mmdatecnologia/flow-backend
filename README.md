@@ -1,5 +1,9 @@
 # Flow Backend
 
+## Badges
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=mmdatecnologia_flow-backend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=mmdatecnologia_flow-backend)
+
 ## Ajustes e melhorias
 
 O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas nas seguintes tarefas:
