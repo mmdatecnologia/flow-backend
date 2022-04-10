@@ -22,11 +22,10 @@ export class MainController {
   @Get()
   @HealthCheck()
   async check(): Promise<HealthCheckResult> {
-    const result = await this.health.check([
+    return this.health.check([
       () => this.http.pingCheck('dependency-api', 'https://docs.nestjs.com'),
       () => this.cache.isHealthy('cache'),
       () => this.db.pingCheck('database')
     ])
-    return result
   }
 }

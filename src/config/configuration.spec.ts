@@ -20,7 +20,7 @@ describe('Configuration', () => {
   it('should be defined', () => {
     expect(configs.env).toBeTruthy()
     expect(configs.app.description).toBeTruthy()
-    expect(configs.app.name)
+    expect(configs.app.name).toBeTruthy()
     expect(configs.app.port).toBeTruthy()
     expect(configs.app.version).toBeTruthy()
     expect(configs.throttler.limit).toBeTruthy()
