@@ -97,4 +97,41 @@ describe('UserService', () => {
       expect(service.findOne(mockedUserId)).rejects.toThrow()
     })
   })
+  describe('findAll', () => {
+    it('should call repository with correct params', async () => {
+      jest.spyOn(userRepository, 'find').mockResolvedValue([])
+
+      await service.findAll()
+
+      expect(userRepository.find).toHaveBeenCalledTimes(1)
+      expect(userRepository.find).toHaveBeenCalledWith({})
+    })
+    it('should return an array of GetUserDto instances with correct data', async () => {
+      const mockedUserEmail = faker.internet.email()
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEntity = new UserEntity()
+      mockedUserEntity.id = mockedUserId
+      mockedUserEntity.email = mockedUserEmail
+      jest.spyOn(userRepository, 'find').mockResolvedValue([mockedUserEntity])
+
+      const usersFound = await service.findAll()
+
+      expect(usersFound).toBeInstanceOf(Array)
+      expect(usersFound[0]).toBeInstanceOf(GetUserDto)
+    })
+    it('should throw an error if repository throws an error', async () => {
+      jest.spyOn(userRepository, 'find').mockImplementationOnce(() => {
+        throw new Error()
+      })
+      expect(service.findAll()).rejects.toThrow()
+    })
+    it('should return an empty array if no records are found', async () => {
+      jest.spyOn(userRepository, 'find').mockResolvedValue([])
+
+      const usersFound = await service.findAll()
+
+      expect(usersFound).toBeInstanceOf(Array)
+      expect(usersFound.length).toBe(0)
+    })
+  })
 })
