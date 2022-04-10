@@ -5,15 +5,15 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 
-import { CreateUser } from './service.interface'
+import { UseCase } from './service.interface'
 
 @Injectable()
-export class UserService implements CreateUser {
+export class UserService implements UseCase.CreateUser {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: MongoRepository<UserEntity>
   ) {}
   async create(user: CreateUserDto): Promise<GetUserDto> {
-    throw new Error('Method not implemented.')
+    throw new Error(user + ' is not provided')
   }
 }
