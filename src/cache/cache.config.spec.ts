@@ -7,6 +7,8 @@ describe('CacheConfig', () => {
   let configService: ConfigService
 
   beforeEach(async () => {
+    jest.resetModules()
+    jest.resetAllMocks()
     const moduleRef = await Test.createTestingModule({
       imports: [ConfigModule],
       controllers: [],

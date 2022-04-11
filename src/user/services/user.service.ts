@@ -6,8 +6,10 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
 
+import { UpdateUserDto } from '../models'
+
 @Injectable()
-export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase.FindAll {
+export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase.FindAll, UseCase.UpdateUser {
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: MongoRepository<UserEntity>
@@ -35,5 +37,9 @@ export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase
       return []
     }
     return result.map(({ id, email }) => Object.assign(new GetUserDto(), { id, email }))
+  }
+
+  async update(user: UpdateUserDto): Promise<GetUserDto> {
+    throw new Error('Method not implemented.')
   }
 }

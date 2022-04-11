@@ -3,15 +3,15 @@ module.exports = {
   moduleNameMapper: {
     '@app/(.*)': '<rootDir>/src/$1'
   },
-  moduleFileExtensions: ['ts', 'js', 'tsx', 'jsx', 'json'],
+  moduleFileExtensions: ['ts', 'js', 'tsx', 'jsx'],
   preset: 'ts-jest',
   transform: {
     '^.+\\.(t|j)s$': 'ts-jest'
   },
-  coverageDirectory: 'coverage',
   testEnvironment: 'node',
   coverageReporters: ['json-summary', 'text', 'lcov'],
   testResultsProcessor: 'jest-sonar-reporter',
+  coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
       statements: 95,

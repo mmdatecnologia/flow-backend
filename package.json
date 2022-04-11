@@ -113,5 +113,10 @@
       "changelog": true,
       "commit": true
     }
+  },
+  "jestSonar": {
+    "reportPath": "coverage",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
   }
 }
