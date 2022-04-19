@@ -2,7 +2,7 @@ import { CreateUserDto, GetUserDto, UpdateUserDto, User } from '@app/user/models
 
 export namespace UseCase {
   export interface CreateUser {
-    create(user: CreateUserDto): Promise<GetUserDto>
+    create(data: CreateUserDto): Promise<GetUserDto>
   }
 
   export interface FindOne {
@@ -14,7 +14,7 @@ export namespace UseCase {
   }
 
   export interface UpdateUser {
-    update(user: UpdateUserDto): Promise<GetUserDto>
+    update(id: string, data: UpdateUserDto): Promise<GetUserDto>
   }
 
   export interface DeleteUser {
@@ -22,6 +22,6 @@ export namespace UseCase {
   }
 
   export interface ValidateUser {
-    validate(user: User): Promise<User>
+    validate(data: User): Promise<User>
   }
 }
