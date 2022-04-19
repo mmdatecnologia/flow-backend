@@ -23,6 +23,7 @@ module.exports = {
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/main.{js,jsx,ts,tsx}',
+    '!<rootDir>/src/**/index.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.module.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.interface.{js,jsx,ts,tsx}',
     '!<rootDir>/src/**/*.*spec.{js,jsx,ts,tsx}',
