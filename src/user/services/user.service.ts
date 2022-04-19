@@ -1,12 +1,8 @@
-import { CreateUserDto } from '@app/user/models/dtos/create-user.dto'
-import { GetUserDto } from '@app/user/models/dtos/get-user.dto'
-import { UserEntity } from '@app/user/models/user.entity'
-import { UseCase } from '@app/user/services/service.interface'
+import { CreateUserDto, GetUserDto, UpdateUserDto, UserEntity } from '@app/user/models'
+import { UseCase } from '@app/user/services'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { MongoRepository } from 'typeorm'
-
-import { UpdateUserDto } from '../models'
 
 @Injectable()
 export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase.FindAll, UseCase.UpdateUser {
@@ -39,7 +35,13 @@ export class UserService implements UseCase.CreateUser, UseCase.FindOne, UseCase
     return result.map(({ id, email }) => Object.assign(new GetUserDto(), { id, email }))
   }
 
-  async update(user: UpdateUserDto): Promise<GetUserDto> {
-    throw new Error('Method not implemented.')
+  async update(id: string, data: UpdateUserDto): Promise<GetUserDto> {
+    const findUserEntity = await this.userRepository.findOne({ id })
+    if (!findUserEntity) {
+      return undefined
+    }
+    Object.assign(findUserEntity, { ...data })
+    await this.userRepository.save<UserEntity>(findUserEntity)
+    return Object.assign(new GetUserDto(), { ...findUserEntity })
   }
 }
