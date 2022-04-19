@@ -10,6 +10,7 @@ describe('UserService', () => {
   const userRepository = createMock<MongoRepository<UserEntity>>()
 
   beforeEach(async () => {
+    jest.clearAllMocks()
     const module: TestingModule = await Test.createTestingModule({
       providers: [{ provide: 'UserEntityRepository', useValue: userRepository }, UserService]
     }).compile()
@@ -132,6 +133,66 @@ describe('UserService', () => {
 
       expect(usersFound).toBeInstanceOf(Array)
       expect(usersFound.length).toBe(0)
+    })
+  })
+  describe('update', () => {
+    it('should call repository findOne with correct params', async () => {
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEmail = faker.internet.email()
+      const mockedUserEntity = new UserEntity()
+      mockedUserEntity.id = mockedUserId
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(mockedUserEntity)
+
+      await service.update(mockedUserId, { email: mockedUserEmail })
+
+      expect(userRepository.findOne).toHaveBeenCalledTimes(1)
+      expect(userRepository.findOne).toHaveBeenCalledWith({ id: mockedUserId })
+    })
+    it('should return undefined if no record is find', async () => {
+      jest.spyOn(userRepository, 'findOne').mockImplementationOnce(() => {
+        return undefined
+      })
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEmail = faker.internet.email()
+      const userFound = await service.update(mockedUserId, { email: mockedUserEmail })
+      expect(userFound).toBeFalsy()
+    })
+    it('should throw an error if repository throws an error', async () => {
+      jest.spyOn(userRepository, 'findOne').mockImplementationOnce(() => {
+        throw new Error()
+      })
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEmail = faker.internet.email()
+      expect(service.update(mockedUserId, { email: mockedUserEmail })).rejects.toThrow()
+    })
+    it('should call repository save with correct params', async () => {
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEmail = faker.internet.email()
+      const mockedUserEntity = new UserEntity()
+      mockedUserEntity.id = mockedUserId
+      mockedUserEntity.updatedAt = new Date()
+      mockedUserEntity.createdAt = new Date()
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(mockedUserEntity)
+      mockedUserEntity.email = mockedUserEmail
+      jest.spyOn(userRepository, 'save').mockResolvedValue(mockedUserEntity)
+      await service.update(mockedUserId, { email: mockedUserEmail })
+      expect(userRepository.save).toHaveBeenCalledTimes(1)
+      expect(userRepository.save).toHaveBeenCalledWith(mockedUserEntity)
+    })
+    it('should return a GetUserDto instance with correct data', async () => {
+      const mockedUserId = faker.random.uuid()
+      const mockedUserEmail = faker.internet.email()
+      const mockedUserEntity = new UserEntity()
+      mockedUserEntity.id = mockedUserId
+      mockedUserEntity.updatedAt = new Date()
+      mockedUserEntity.createdAt = new Date()
+      jest.spyOn(userRepository, 'findOne').mockResolvedValue(mockedUserEntity)
+      mockedUserEntity.email = mockedUserEmail
+      jest.spyOn(userRepository, 'save').mockResolvedValue(mockedUserEntity)
+      const userUpdated = await service.update(mockedUserId, { email: mockedUserEmail })
+      expect(userUpdated).toBeInstanceOf(GetUserDto)
+      expect(userUpdated.email).toBe(mockedUserEmail)
+      expect(userUpdated.id).toBe(mockedUserId)
     })
   })
 })
