@@ -28,7 +28,7 @@ async function bootstrap() {
     .setVersion(configService.get<string>('app.version'))
     .build()
   const options: SwaggerDocumentOptions = {
-    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey
+    operationIdFactory: (controllerKey: string, methodKey: string) => `${controllerKey}:${methodKey}`
   }
   const document = SwaggerModule.createDocument(app, config, options)
   SwaggerModule.setup('api', app, document)
